@@ -1,5 +1,6 @@
 package by.it_academy.jd2.Mk_jd2_111_25.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class User {
@@ -7,8 +8,8 @@ public class User {
     private String login;
     private String password;
     private String name;
-    private Date  birthDate;
-    private Date registrationDate;
+    private LocalDate  birthDate;
+    private LocalDate registrationDate;
     private Role role;
 
 
@@ -20,19 +21,19 @@ public class User {
         this.role = role;
     }
 
-    public Date getRegistrationDate() {
+    public LocalDate getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
+    public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

@@ -1,8 +1,12 @@
 package by.it_academy.jd2.Mk_jd2_111_25.service;
 
+import by.it_academy.jd2.Mk_jd2_111_25.dto.Role;
 import by.it_academy.jd2.Mk_jd2_111_25.dto.User;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IUserService;
 import by.it_academy.jd2.Mk_jd2_111_25.storage.api.IUserStorage;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 public class UserService implements IUserService {
 
@@ -12,5 +16,14 @@ public class UserService implements IUserService {
         this.storage = storage;
     }
 
-
+    @Override
+    public void addUser(String login, String password, String name, LocalDate date, Role role) {
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword(password);
+        user.setName(name);
+        user.setBirthDate(date);
+        user.setRole(role);
+        storage.add(user);
+    }
 }
