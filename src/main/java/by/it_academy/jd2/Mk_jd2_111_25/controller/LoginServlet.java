@@ -1,21 +1,18 @@
 package by.it_academy.jd2.Mk_jd2_111_25.controller;
 
-import by.it_academy.jd2.Mk_jd2_111_25.dto.Role;
 import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IUserService;
-import by.it_academy.jd2.Mk_jd2_111_25.storage.api.StorageException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
-@WebServlet(urlPatterns = "/api/user")
-public class RegisterServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/api/login")
+public class LoginServlet extends HttpServlet {
 
     private final IUserService service = ServiceFactory.getUserService();
 
@@ -26,23 +23,20 @@ public class RegisterServlet extends HttpServlet {
 
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        String name = req.getParameter("name");
-        String date = req.getParameter("date");
-        LocalDate birthDate;
-        try {
-            birthDate = LocalDate.parse(date);
-        } catch (DateTimeParseException e){
-            throw new ServletException("Invalid date format, expected yyyy-MM-dd");
-        }
-        Role role = Role.USER;
 
 //        try {
-            service.addUser(login, password, name, birthDate, role);
+            if (service.authenticate(login, password)){
+                HttpSession session = req.getSession();
+                session.setAttribute("user", login);
+//                resp.sendRedirect(".jsp");
+            } else {
+//                req.setAttribute("error", "Invalid credentials");
+//                req.getRequestDispatcher("/.jsp").forward(req, resp);
+            };
 //        } catch (StorageException e) {
 //            req.setAttribute("errorMessage", e.getMessage());
 //            req.getRequestDispatcher("/.jsp").forward(req, resp);
 //        }
-
     }
 
 }

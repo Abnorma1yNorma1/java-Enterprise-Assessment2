@@ -6,10 +6,12 @@ import java.time.LocalDate;
 
 public interface IUserService {
 
-    public void addUser(
+    void addUser(
             String login,
             String password,
             String name,
             LocalDate date,
             Role role);
+
+    boolean authenticate(String login, String password);
 }

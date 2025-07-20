@@ -26,4 +26,9 @@ public class UserService implements IUserService {
         user.setRole(role);
         storage.add(user);
     }
+
+    @Override
+    public boolean authenticate(String login, String password) {
+        return storage.userExists(login) && storage.validPassword(login, password);
+    }
 }

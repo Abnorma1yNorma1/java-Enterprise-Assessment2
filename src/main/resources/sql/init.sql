@@ -15,8 +15,8 @@ CREATE TABLE chat_app.messages (
     toWhom VARCHAR(64) NOT NULL,
     content TEXT NOT NULL,
     sent_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_sender FOREIGN KEY (sender_login) REFERENCES chat_app.users(login) ON DELETE CASCADE,
-    CONSTRAINT fk_receiver FOREIGN KEY (receiver_login) REFERENCES chat_app.users(login) ON DELETE CASCADE
+    CONSTRAINT fk_sender FOREIGN KEY (fromWho) REFERENCES chat_app.users(login) ON DELETE CASCADE,
+    CONSTRAINT fk_receiver FOREIGN KEY (toWhom) REFERENCES chat_app.users(login) ON DELETE CASCADE
 );
 
 INSERT INTO chat_app.users (
