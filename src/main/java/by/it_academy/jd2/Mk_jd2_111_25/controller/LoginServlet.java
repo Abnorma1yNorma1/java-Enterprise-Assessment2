@@ -32,11 +32,11 @@ public class LoginServlet extends HttpServlet {
                 resp.sendRedirect(req.getContextPath() + "/ui/");
             } else {
                 req.setAttribute("error", "Invalid credentials");
-                req.getRequestDispatcher("/ui/signIn.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/ui/signIn.jsp").forward(req, resp);
             }
         } catch (StorageException e) {
             req.setAttribute("errorMessage", e.getMessage());
-            req.getRequestDispatcher("/ui/signIn.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/ui/signIn.jsp").forward(req, resp);
         }
     }
 

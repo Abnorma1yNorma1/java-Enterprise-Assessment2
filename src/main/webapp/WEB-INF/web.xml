@@ -23,15 +23,6 @@
         <url-pattern>/ui/signIn</url-pattern>
     </servlet-mapping>
 
-<!--    <servlet>-->
-<!--        <servlet-name>login</servlet-name>-->
-<!--        <servlet-class>by.it_academy.jd2.Mk_jd2_111_25.controller.LoginServlet</servlet-class>-->
-<!--    </servlet>-->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>login</servlet-name>-->
-<!--        <url-pattern>/api/login</url-pattern>-->
-<!--    </servlet-mapping>-->
-
     <servlet>
         <servlet-name>signUp</servlet-name>
         <jsp-file>/WEB-INF/ui/signUp.jsp</jsp-file>
@@ -41,15 +32,6 @@
         <url-pattern>/ui/signUp</url-pattern>
     </servlet-mapping>
 
-<!--    <servlet>-->
-<!--        <servlet-name>register</servlet-name>-->
-<!--        <servlet-class>by.it_academy.jd2.Mk_jd2_111_25.controller.RegisterServlet</servlet-class>-->
-<!--    </servlet>-->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>register</servlet-name>-->
-<!--        <url-pattern>/api/user</url-pattern>-->
-<!--    </servlet-mapping>-->
-
     <servlet>
         <servlet-name>message</servlet-name>
         <jsp-file>/WEB-INF/ui/api/message.jsp</jsp-file>
@@ -58,15 +40,6 @@
         <servlet-name>message</servlet-name>
         <url-pattern>/ui/api/message</url-pattern>
     </servlet-mapping>
-
-<!--    <servlet>-->
-<!--        <servlet-name>messageServlet</servlet-name>-->
-<!--        <servlet-class>by.it_academy.jd2.Mk_jd2_111_25.controller.MessagesServlet</servlet-class>-->
-<!--    </servlet>-->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>MessagesServlet</servlet-name>-->
-<!--        <url-pattern>/api/message</url-pattern>-->
-<!--    </servlet-mapping>-->
 
     <servlet>
         <servlet-name>chats</servlet-name>

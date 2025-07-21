@@ -27,7 +27,7 @@ public class RegisterServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String name = req.getParameter("name");
-        String birthDateStr = req.getParameter("date");
+        String birthDateStr = req.getParameter("birthDate");
 
         if (login == null || login.isBlank() ||
                 password == null || password.isBlank() ||

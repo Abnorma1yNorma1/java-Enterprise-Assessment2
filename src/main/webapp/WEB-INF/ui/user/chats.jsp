@@ -48,7 +48,7 @@
     </c:otherwise>
 </c:choose>
 
-<p><a href="${pageContext.request.contextPath}/ui/user/message">Отправить сообщение</a></p>
+<p><a href="${pageContext.request.contextPath}/ui/api/message">Отправить сообщение</a></p>
 <p><a href="${pageContext.request.contextPath}/ui/">Главная</a></p>
 
 </body>
