@@ -3,6 +3,7 @@ package by.it_academy.jd2.Mk_jd2_111_25.controller;
 import by.it_academy.jd2.Mk_jd2_111_25.dto.Message;
 import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IMessageService;
+import by.it_academy.jd2.Mk_jd2_111_25.storage.api.StorageException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,10 +25,15 @@ public class MessagesServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
         HttpSession session = req.getSession();
-        String login = session.getAttribute("user").toString();
+        Object userAttr = session.getAttribute("user");
+        if (userAttr == null) {
+            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            return;
+        }
+        String login = userAttr.toString();
         List<Message> messages = service.getMessages(login);
         req.setAttribute("messages", messages);
-        req.getRequestDispatcher("/WEB-INF/chats.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/ui/user/chats.jsp").forward(req, resp);
     }
 
     @Override
@@ -52,8 +58,14 @@ public class MessagesServlet extends HttpServlet {
         message.setText(text);
         message.setToWhom(toWhom);
         message.setFromWho(login);
-        service.send(message);
-        resp.sendRedirect(req.getContextPath()+"/user/message");
+        try {
+            service.send(message);
+        } catch (StorageException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            return;
+        }
+
+        resp.sendRedirect(req.getContextPath()+"/ui/api/message");
     }
 
 }

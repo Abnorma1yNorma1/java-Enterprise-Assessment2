@@ -19,7 +19,7 @@
         }
     %>
 
-<form method="post" action="/api/user">
+<form method="post" action="${pageContext.request.contextPath}/api/user">
     <label for="login">Логин:</label><br>
     <input type="text" id="login" name="login" required><br><br>
 
@@ -35,8 +35,8 @@
     <button type="submit">Зарегистрироваться</button>
 </form>
 
-<p><a href="/ui/signin">Уже есть аккаунт? Войти</a></p>
-<p><a href="/ui/">Назад на главную</a></p>
+<p><a href="${pageContext.request.contextPath}/ui/signIn">Уже есть аккаунт? Войти</a></p>
+<p><a href="${pageContext.request.contextPath}/ui/">Назад на главную</a></p>
 
 </body>
 </html>

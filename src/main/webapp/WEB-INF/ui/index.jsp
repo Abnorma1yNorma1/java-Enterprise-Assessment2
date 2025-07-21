@@ -33,11 +33,11 @@
     <h1>Добро пожаловать в систему сообщений</h1>
 
     <div class="nav">
-        <a href="signIn">Вход</a>
-        <a href="signUp">Регистрация</a>
-        <a href="user/message">Отправить сообщение</a>
-        <a href="user/chats">Мои сообщения</a>
-        <a href="admin/statistics">Статистика</a>
+        <a href="${pageContext.request.contextPath}/ui/signIn">Вход</a>
+        <a href="${pageContext.request.contextPath}/ui/signUp">Регистрация</a>
+        <a href="${pageContext.request.contextPath}/ui/api/message">Отправить сообщение</a>
+        <a href="${pageContext.request.contextPath}/ui/user/chats">Мои сообщения</a>
+        <a href="${pageContext.request.contextPath}/ui/admin/statistics">Статистика</a>
     </div>
 </body>
 </html>

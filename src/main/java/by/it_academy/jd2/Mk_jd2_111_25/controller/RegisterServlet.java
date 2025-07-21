@@ -27,12 +27,12 @@ public class RegisterServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String name = req.getParameter("name");
-        String date = req.getParameter("date");
+        String birthDateStr = req.getParameter("date");
 
         if (login == null || login.isBlank() ||
                 password == null || password.isBlank() ||
                 name == null || name.isBlank() ||
-                date == null || date.isBlank()) {
+                birthDateStr == null || birthDateStr.isBlank()) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().write("All fields are required");
             return;
@@ -41,20 +41,17 @@ public class RegisterServlet extends HttpServlet {
         LocalDate birthDate;
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            birthDate = LocalDate.parse(date, formatter);
+            birthDate = LocalDate.parse(birthDateStr, formatter);
         } catch (DateTimeParseException e){
             throw new ServletException("Invalid date format, expected yyyy-MM-dd");
         }
 
         Role role = Role.USER;
 
-
-
-
         try {
             service.addUser(login, password, name, birthDate, role);
             resp.setStatus(HttpServletResponse.SC_CREATED);
-            resp.sendRedirect("/login.jsp");
+            resp.sendRedirect(req.getContextPath() + "/ui/signIn");
         } catch (IllegalArgumentException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().write("Invalid input: " + e.getMessage());

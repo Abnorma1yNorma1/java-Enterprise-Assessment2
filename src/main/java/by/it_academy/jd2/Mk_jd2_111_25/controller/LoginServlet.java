@@ -26,17 +26,17 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         try {
-            if (service.authenticate(login, password)){
+            if (service.authenticate(login, password)) {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", login);
-                resp.sendRedirect(req.getContextPath()+"/ui");
+                resp.sendRedirect(req.getContextPath() + "/ui/");
             } else {
                 req.setAttribute("error", "Invalid credentials");
-                req.getRequestDispatcher("/signIn.jsp").forward(req, resp);
+                req.getRequestDispatcher("/ui/signIn.jsp").forward(req, resp);
             }
         } catch (StorageException e) {
             req.setAttribute("errorMessage", e.getMessage());
-            req.getRequestDispatcher("/signIn.jsp").forward(req, resp);
+            req.getRequestDispatcher("/ui/signIn.jsp").forward(req, resp);
         }
     }
 

@@ -17,7 +17,7 @@
         <button type="submit">Войти</button>
     </form>
 
-    <p><a href="${pageContext.request.contextPath}/ui">На главную</a></p>
+    <p><a href="${pageContext.request.contextPath}/ui/">На главную</a></p>
 
     <%
         String error = request.getParameter("error");

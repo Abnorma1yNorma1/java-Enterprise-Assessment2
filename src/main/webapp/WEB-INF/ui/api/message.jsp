@@ -22,7 +22,7 @@
 </form>
 
 <br>
-<a href="/ui/user/chats">Перейти к чату</a> |
-<a href="/ui">Главная</a>
+<a href="${pageContext.request.contextPath}/ui/user/chats">Перейти к чату</a> |
+<a href="${pageContext.request.contextPath}/ui/">Главная</a>
 </body>
 </html>
