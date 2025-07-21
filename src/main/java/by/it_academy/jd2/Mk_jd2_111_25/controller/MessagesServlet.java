@@ -26,7 +26,8 @@ public class MessagesServlet extends HttpServlet {
         HttpSession session = req.getSession();
         String login = session.getAttribute("user").toString();
         List<Message> messages = service.getMessages(login);
-//        resp.sendRedirect(".jsp");
+        req.setAttribute("messages", messages);
+        req.getRequestDispatcher("/WEB-INF/chats.jsp").forward(req, resp);
     }
 
     @Override
@@ -35,8 +36,24 @@ public class MessagesServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
         HttpSession session = req.getSession();
-        String login = session.getAttribute("user").toString();
-//        resp.sendRedirect(".jsp");
+        Object userAttr = session.getAttribute("user");
+        if (userAttr == null) {
+            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            return;
+        }
+        String login = userAttr.toString();
+        String toWhom = req.getParameter("toWhom");
+        String text = req.getParameter("text");
+        if (toWhom == null || toWhom.isBlank() || text == null || text.isBlank()) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
+            return;
+        }
+        Message message = new Message();
+        message.setText(text);
+        message.setToWhom(toWhom);
+        message.setFromWho(login);
+        service.send(message);
+        resp.sendRedirect(req.getContextPath()+"/user/message");
     }
 
 }

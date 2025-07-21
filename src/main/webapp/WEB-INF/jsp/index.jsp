@@ -33,8 +33,8 @@
     <h1>Добро пожаловать в систему сообщений</h1>
 
     <div class="nav">
-        <a href="signin">Вход</a>
-        <a href="signup">Регистрация</a>
+        <a href="signIn">Вход</a>
+        <a href="signUp">Регистрация</a>
         <a href="user/message">Отправить сообщение</a>
         <a href="user/chats">Мои сообщения</a>
         <a href="admin/statistics">Статистика</a>

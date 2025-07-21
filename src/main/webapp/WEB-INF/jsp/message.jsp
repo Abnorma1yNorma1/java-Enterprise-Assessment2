@@ -11,7 +11,7 @@
     <p style="color: red;"><%= error %></p>
 <% } %>
 
-<form method="post" action="/ui/user/message">
+<form method="post" action="${pageContext.request.contextPath}/api/message">
     <label for="toWhom">Кому (логин):</label><br>
     <input type="text" id="toWhom" name="toWhom" required><br><br>
 

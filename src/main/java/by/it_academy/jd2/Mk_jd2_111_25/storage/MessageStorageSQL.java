@@ -40,4 +40,18 @@ public class MessageStorageSQL implements IMessageStorage {
         }
         return list;
     }
+
+    @Override
+    public void add(Message message) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement insert = conn.prepareStatement("INSERT INTO chat_app.messages(fromWho, toWhom, content)" +
+                     "VALUES(?,?,?)")){
+            insert.setString(1, message.getFromWho());
+            insert.setString(2, message.getToWhom());
+            insert.setString(3, message.getText());
+            insert.executeUpdate();
+        }catch (SQLException e){
+            throw new StorageException("Failed to add message", e);
+        }
+    }
 }

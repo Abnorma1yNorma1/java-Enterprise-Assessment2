@@ -18,4 +18,9 @@ public class MessageService implements IMessageService {
     public List<Message> getMessages(String login) {
         return storage.getMessages(login);
     }
+
+    @Override
+    public void send(Message message) {
+        storage.add(message);
+    }
 }

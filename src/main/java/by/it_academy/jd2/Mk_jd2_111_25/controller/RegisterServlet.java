@@ -3,7 +3,6 @@ package by.it_academy.jd2.Mk_jd2_111_25.controller;
 import by.it_academy.jd2.Mk_jd2_111_25.dto.Role;
 import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IUserService;
-import by.it_academy.jd2.Mk_jd2_111_25.storage.api.StorageException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 @WebServlet(urlPatterns = "/api/user")
@@ -28,21 +28,40 @@ public class RegisterServlet extends HttpServlet {
         String password = req.getParameter("password");
         String name = req.getParameter("name");
         String date = req.getParameter("date");
+
+        if (login == null || login.isBlank() ||
+                password == null || password.isBlank() ||
+                name == null || name.isBlank() ||
+                date == null || date.isBlank()) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write("All fields are required");
+            return;
+        }
+
         LocalDate birthDate;
         try {
-            birthDate = LocalDate.parse(date);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            birthDate = LocalDate.parse(date, formatter);
         } catch (DateTimeParseException e){
             throw new ServletException("Invalid date format, expected yyyy-MM-dd");
         }
+
         Role role = Role.USER;
 
-//        try {
-            service.addUser(login, password, name, birthDate, role);
-//        } catch (StorageException e) {
-//            req.setAttribute("errorMessage", e.getMessage());
-//            req.getRequestDispatcher("/.jsp").forward(req, resp);
-//        }
 
+
+
+        try {
+            service.addUser(login, password, name, birthDate, role);
+            resp.setStatus(HttpServletResponse.SC_CREATED);
+            resp.sendRedirect("/login.jsp");
+        } catch (IllegalArgumentException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write("Invalid input: " + e.getMessage());
+        } catch (Exception e) {
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().write("Server error: " + e.getMessage());
+        }
     }
 
 }

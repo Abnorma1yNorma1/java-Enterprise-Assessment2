@@ -2,6 +2,7 @@ package by.it_academy.jd2.Mk_jd2_111_25.controller;
 
 import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IUserService;
+import by.it_academy.jd2.Mk_jd2_111_25.storage.api.StorageException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,19 +25,19 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-//        try {
+        try {
             if (service.authenticate(login, password)){
                 HttpSession session = req.getSession();
                 session.setAttribute("user", login);
-//                resp.sendRedirect(".jsp");
+                resp.sendRedirect(req.getContextPath()+"/ui");
             } else {
-//                req.setAttribute("error", "Invalid credentials");
-//                req.getRequestDispatcher("/.jsp").forward(req, resp);
-            };
-//        } catch (StorageException e) {
-//            req.setAttribute("errorMessage", e.getMessage());
-//            req.getRequestDispatcher("/.jsp").forward(req, resp);
-//        }
+                req.setAttribute("error", "Invalid credentials");
+                req.getRequestDispatcher("/signIn.jsp").forward(req, resp);
+            }
+        } catch (StorageException e) {
+            req.setAttribute("errorMessage", e.getMessage());
+            req.getRequestDispatcher("/signIn.jsp").forward(req, resp);
+        }
     }
 
 }
