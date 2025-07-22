@@ -37,7 +37,7 @@
         <a href="${pageContext.request.contextPath}/ui/signUp">Регистрация</a>
         <a href="${pageContext.request.contextPath}/ui/api/message">Отправить сообщение</a>
         <a href="${pageContext.request.contextPath}/ui/user/chats">Мои сообщения</a>
-        <a href="${pageContext.request.contextPath}/ui/admin/statistics">Статистика</a>
+        <a href="${pageContext.request.contextPath}/api/admin/statistics">Статистика</a>
     </div>
 </body>
 </html>

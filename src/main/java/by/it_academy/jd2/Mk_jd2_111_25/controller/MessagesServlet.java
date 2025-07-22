@@ -1,7 +1,9 @@
 package by.it_academy.jd2.Mk_jd2_111_25.controller;
 
+import by.it_academy.jd2.Mk_jd2_111_25.dto.AppStatistics;
 import by.it_academy.jd2.Mk_jd2_111_25.dto.Message;
 import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
+import by.it_academy.jd2.Mk_jd2_111_25.service.SessionUserTrackingListener;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IMessageService;
 import by.it_academy.jd2.Mk_jd2_111_25.storage.api.StorageException;
 import jakarta.servlet.ServletException;
@@ -60,6 +62,10 @@ public class MessagesServlet extends HttpServlet {
         message.setFromWho(login);
         try {
             service.send(message);
+            AppStatistics statistics = (AppStatistics) getServletContext().getAttribute(SessionUserTrackingListener.STATISTICS_ATTR);
+            if (statistics != null) {
+                statistics.incrementMessages();
+            }
         } catch (StorageException e) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
             return;

@@ -23,4 +23,10 @@ public class MessageService implements IMessageService {
     public void send(Message message) {
         storage.add(message);
     }
+
+    @Override
+    public int count() {
+        int count = storage.count();
+        return count;
+    }
 }

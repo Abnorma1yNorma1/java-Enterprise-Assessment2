@@ -8,4 +8,5 @@ public interface IUserStorage {
 
     boolean userExists(String login);
     boolean validPassword (String login, String password);
+    int count();
 }

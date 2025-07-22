@@ -8,4 +8,5 @@ import java.util.List;
 public interface IMessageService {
     List<Message> getMessages(String login);
     void send(Message message);
+    int count();
 }

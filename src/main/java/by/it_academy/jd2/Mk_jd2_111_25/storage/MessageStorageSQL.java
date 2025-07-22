@@ -37,7 +37,7 @@ public class MessageStorageSQL implements IMessageStorage {
                 }
             }
         } catch (SQLException e) {
-            throw new StorageException("Failed to to fetch messages for user: " + login, e);
+            throw new StorageException("Failed to fetch messages for user: " + login, e);
         }
         return list;
     }
@@ -55,4 +55,21 @@ public class MessageStorageSQL implements IMessageStorage {
             throw new StorageException("Failed to add message", e);
         }
     }
+
+    @Override
+    public int count() {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement select = conn.prepareStatement("SELECT COUNT(*) AS total_messages FROM chat_app.messages");
+             ResultSet result = select.executeQuery()
+        ) {
+            if (result.next()) {
+                return result.getInt("total_messages");
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            throw new StorageException("Failed to count messages", e);
+        }
+    }
+
 }

@@ -7,4 +7,5 @@ import java.util.List;
 public interface IMessageStorage {
     List<Message> getMessages(String login);
     void add(Message message);
+    int count();
 }

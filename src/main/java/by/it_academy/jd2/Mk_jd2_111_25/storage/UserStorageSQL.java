@@ -72,4 +72,20 @@ public class UserStorageSQL implements IUserStorage {
             throw new StorageException("Failed to validate user password", e);
         }
     }
+
+    @Override
+    public int count() {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement select = conn.prepareStatement("SELECT COUNT(*) AS total_users FROM chat_app.users");
+             ResultSet result = select.executeQuery()
+        ) {
+            if (result.next()) {
+                return result.getInt("total_users");
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            throw new StorageException("Failed to count users", e);
+        }
+    }
 }

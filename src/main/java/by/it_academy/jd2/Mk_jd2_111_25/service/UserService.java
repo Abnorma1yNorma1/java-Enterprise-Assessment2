@@ -6,7 +6,6 @@ import by.it_academy.jd2.Mk_jd2_111_25.service.api.IUserService;
 import by.it_academy.jd2.Mk_jd2_111_25.storage.api.IUserStorage;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class UserService implements IUserService {
 
@@ -30,5 +29,11 @@ public class UserService implements IUserService {
     @Override
     public boolean authenticate(String login, String password) {
         return storage.userExists(login) && storage.validPassword(login, password);
+    }
+
+    @Override
+    public int count() {
+        int count = storage.count();
+        return count;
     }
 }
