@@ -35,8 +35,8 @@
     <div class="nav">
         <a href="${pageContext.request.contextPath}/ui/signIn">Вход</a>
         <a href="${pageContext.request.contextPath}/ui/signUp">Регистрация</a>
-        <a href="${pageContext.request.contextPath}/ui/api/message">Отправить сообщение</a>
-        <a href="${pageContext.request.contextPath}/ui/user/chats">Мои сообщения</a>
+        <a href="${pageContext.request.contextPath}/ui/user/message">Отправить сообщение</a>
+        <a href="${pageContext.request.contextPath}/api/message">Мои сообщения</a>
         <a href="${pageContext.request.contextPath}/api/admin/statistics">Статистика</a>
     </div>
 </body>

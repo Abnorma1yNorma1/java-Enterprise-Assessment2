@@ -23,8 +23,7 @@ public class MessageStorageSQL implements IMessageStorage {
     public List<Message> getMessages(String login) {
         ArrayList<Message> list = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement select = conn.prepareStatement("SELECT id, fromWho, toWhom, content, sent_time FROM chat_app.messages WHERE toWhom  = ?" +
-                     "ORDER BY sent_time ASC")
+             PreparedStatement select = conn.prepareStatement("SELECT id, fromWho, toWhom, content, sent_time FROM chat_app.messages WHERE toWhom  = ? ORDER BY sent_time ASC")
         ) {
             select.setString(1, login);
             try (ResultSet result = select.executeQuery()){
@@ -32,7 +31,7 @@ public class MessageStorageSQL implements IMessageStorage {
                     Message m = new Message();
                     m.setText(result.getString("content"));
                     m.setFromWho(result.getString("fromWho"));
-                    m.setDate(result.getTimestamp("sent_time").toLocalDateTime());
+                    m.setDate(result.getTimestamp("sent_time"));
                     list.add(m);
                 }
             }

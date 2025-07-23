@@ -2,10 +2,11 @@ package by.it_academy.jd2.Mk_jd2_111_25.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Message {
 
-    private LocalDateTime date;
+    private Date date;
     private String fromWho;
     private String toWhom;
     private String text;
@@ -34,11 +35,11 @@ public class Message {
         this.fromWho = fromWho;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

@@ -71,7 +71,7 @@ public class MessagesServlet extends HttpServlet {
             return;
         }
 
-        resp.sendRedirect(req.getContextPath()+"/ui/api/message");
+        resp.sendRedirect(req.getContextPath()+"/ui/user/message");
     }
 
 }
