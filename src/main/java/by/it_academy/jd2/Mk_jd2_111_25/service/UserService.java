@@ -36,4 +36,9 @@ public class UserService implements IUserService {
         int count = storage.count();
         return count;
     }
+
+    @Override
+    public Role getRole(String login) {
+        return storage.getRole(login);
+    }
 }
