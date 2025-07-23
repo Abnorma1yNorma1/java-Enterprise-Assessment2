@@ -26,7 +26,6 @@ public class MessageService implements IMessageService {
 
     @Override
     public int count() {
-        int count = storage.count();
-        return count;
+        return storage.count();
     }
 }

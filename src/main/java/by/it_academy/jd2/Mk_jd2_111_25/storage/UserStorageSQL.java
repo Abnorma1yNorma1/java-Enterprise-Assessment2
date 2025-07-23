@@ -93,7 +93,7 @@ public class UserStorageSQL implements IUserStorage {
     @Override
     public Role getRole(String login) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement select = conn.prepareStatement("SELECT role FROM chat_app.users WHERE login = ?");
+             PreparedStatement select = conn.prepareStatement("SELECT role FROM chat_app.users WHERE login = ?")
         ) {
             select.setString(1, login);
             try (ResultSet result = select.executeQuery()){

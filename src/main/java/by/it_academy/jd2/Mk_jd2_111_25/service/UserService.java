@@ -33,8 +33,7 @@ public class UserService implements IUserService {
 
     @Override
     public int count() {
-        int count = storage.count();
-        return count;
+        return storage.count();
     }
 
     @Override
