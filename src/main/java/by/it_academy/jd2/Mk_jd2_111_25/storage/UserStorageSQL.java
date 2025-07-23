@@ -1,5 +1,6 @@
 package by.it_academy.jd2.Mk_jd2_111_25.storage;
 
+import by.it_academy.jd2.Mk_jd2_111_25.dto.Role;
 import by.it_academy.jd2.Mk_jd2_111_25.dto.User;
 import by.it_academy.jd2.Mk_jd2_111_25.storage.api.IUserStorage;
 import by.it_academy.jd2.Mk_jd2_111_25.storage.api.StorageException;
@@ -88,4 +89,29 @@ public class UserStorageSQL implements IUserStorage {
             throw new StorageException("Failed to count users", e);
         }
     }
+
+    @Override
+    public Role getRole(String login) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement select = conn.prepareStatement("SELECT role FROM chat_app.users" +
+                     "WHERE login = ?");
+        ) {
+            select.setString(1, login);
+            try (ResultSet result = select.executeQuery()){
+                if (result.next()) {
+                    String roleStr = result.getString("role");
+                    return Role.fromString(roleStr);
+                } else {
+                    throw new StorageException("User not found: " + login);
+                }
+            }
+        } catch (IllegalArgumentException e) {
+            throw new StorageException("Invalid role in DB for user: " + login, e);
+        }
+        catch (SQLException e) {
+            throw new StorageException("Failed to fetch role for user: " + login, e);
+        }
+
+    }
+
 }

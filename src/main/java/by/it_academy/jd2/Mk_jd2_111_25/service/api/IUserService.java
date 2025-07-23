@@ -15,4 +15,5 @@ public interface IUserService {
 
     boolean authenticate(String login, String password);
     int count();
+    Role getRole(String login);
 }

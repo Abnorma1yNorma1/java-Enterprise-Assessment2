@@ -34,11 +34,11 @@
 
     <servlet>
         <servlet-name>message</servlet-name>
-        <jsp-file>/WEB-INF/ui/api/message.jsp</jsp-file>
+        <jsp-file>/WEB-INF/ui/user/message.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>message</servlet-name>
-        <url-pattern>/ui/api/message</url-pattern>
+        <url-pattern>/ui/user/message</url-pattern>
     </servlet-mapping>
 
     <servlet>
