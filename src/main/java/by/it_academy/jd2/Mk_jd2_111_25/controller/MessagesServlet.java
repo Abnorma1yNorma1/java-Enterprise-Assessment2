@@ -3,7 +3,7 @@ package by.it_academy.jd2.Mk_jd2_111_25.controller;
 import by.it_academy.jd2.Mk_jd2_111_25.dto.AppStatistics;
 import by.it_academy.jd2.Mk_jd2_111_25.dto.Message;
 import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
-import by.it_academy.jd2.Mk_jd2_111_25.service.SessionUserTrackingListener;
+import by.it_academy.jd2.Mk_jd2_111_25.controller.listener.SessionUserTrackingListener;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IMessageService;
 import by.it_academy.jd2.Mk_jd2_111_25.storage.api.StorageException;
 import jakarta.servlet.ServletException;

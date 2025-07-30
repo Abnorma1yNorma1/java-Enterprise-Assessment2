@@ -19,6 +19,8 @@ public class RegisterServlet extends HttpServlet {
 
     private final IUserService service = ServiceFactory.getUserService();
 
+    static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -40,7 +42,6 @@ public class RegisterServlet extends HttpServlet {
 
         LocalDate birthDate;
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             birthDate = LocalDate.parse(birthDateStr, formatter);
         } catch (DateTimeParseException e){
             throw new ServletException("Invalid date format, expected yyyy-MM-dd");
