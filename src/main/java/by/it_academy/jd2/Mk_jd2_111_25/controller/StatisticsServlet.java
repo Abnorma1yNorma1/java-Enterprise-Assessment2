@@ -1,6 +1,6 @@
 package by.it_academy.jd2.Mk_jd2_111_25.controller;
 
-import by.it_academy.jd2.Mk_jd2_111_25.dto.AppStatistics;
+import by.it_academy.jd2.Mk_jd2_111_25.core.dto.AppStatistics;
 import by.it_academy.jd2.Mk_jd2_111_25.controller.listener.SessionUserTrackingListener;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="org.postgresql.Driver"/>
+        <property name="jdbcUrl" value="jdbc:postgresql://localhost/chat_app"/>
+        <property name="user" value="postgres"/>
+        <property name="password" value="postgres"/>
+    </bean>
+
+    <bean id="UserStorageSQL" class="by.it_academy.jd2.Mk_jd2_111_25.storage.UserStorageSQL">
+        <constructor-arg name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="MessageStorageSQL" class="by.it_academy.jd2.Mk_jd2_111_25.storage.MessageStorageSQL">
+        <constructor-arg name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="UserValidator" class="by.it_academy.jd2.Mk_jd2_111_25.service.UserValidator"> </bean>
+    <bean id="MessageValidator" class="by.it_academy.jd2.Mk_jd2_111_25.service.MessageValidator"> </bean>
+
+    <bean id="UserService" class="by.it_academy.jd2.Mk_jd2_111_25.service.UserService">
+        <constructor-arg name="storage" ref="UserStorageSQL"/>
+        <constructor-arg name="validator" ref="UserValidator"/>
+    </bean>
+    <bean id="MessageService" class="by.it_academy.jd2.Mk_jd2_111_25.service.MessageService">
+        <constructor-arg name="storage" ref="MessageStorageSQL"/>
+        <constructor-arg name="validator" ref="MessageValidator"/>
+    </bean>
+
+
+</beans>

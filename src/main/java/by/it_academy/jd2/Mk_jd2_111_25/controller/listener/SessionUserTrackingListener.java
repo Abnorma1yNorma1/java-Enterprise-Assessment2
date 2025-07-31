@@ -1,8 +1,8 @@
 package by.it_academy.jd2.Mk_jd2_111_25.controller.listener;
 
 
-import by.it_academy.jd2.Mk_jd2_111_25.dto.AppStatistics;
-import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
+import by.it_academy.jd2.Mk_jd2_111_25.core.ContextFactory;
+import by.it_academy.jd2.Mk_jd2_111_25.core.dto.AppStatistics;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IMessageService;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IUserService;
 import jakarta.servlet.annotation.WebListener;
@@ -18,8 +18,8 @@ public class SessionUserTrackingListener implements HttpSessionAttributeListener
 
     private AppStatistics statistics;
 
-    private final IUserService serviceUsers = ServiceFactory.getUserService();
-    private final IMessageService serviceMessages = ServiceFactory.getMessageService();
+    private final IUserService serviceUsers = ContextFactory.getBean(IUserService.class);
+    private final IMessageService serviceMessages = ContextFactory.getBean(IMessageService.class);
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {

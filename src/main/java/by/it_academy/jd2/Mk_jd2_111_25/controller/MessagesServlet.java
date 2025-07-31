@@ -1,8 +1,8 @@
 package by.it_academy.jd2.Mk_jd2_111_25.controller;
 
-import by.it_academy.jd2.Mk_jd2_111_25.dto.AppStatistics;
-import by.it_academy.jd2.Mk_jd2_111_25.dto.Message;
-import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
+import by.it_academy.jd2.Mk_jd2_111_25.core.ContextFactory;
+import by.it_academy.jd2.Mk_jd2_111_25.core.dto.AppStatistics;
+import by.it_academy.jd2.Mk_jd2_111_25.core.dto.Message;
 import by.it_academy.jd2.Mk_jd2_111_25.controller.listener.SessionUserTrackingListener;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IMessageService;
 import by.it_academy.jd2.Mk_jd2_111_25.storage.api.StorageException;
@@ -20,7 +20,7 @@ import java.util.List;
 @WebServlet(urlPatterns = "/api/message")
 public class MessagesServlet extends HttpServlet {
 
-    private final IMessageService service = ServiceFactory.getMessageService();
+    private final IMessageService service = ContextFactory.getBean(IMessageService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

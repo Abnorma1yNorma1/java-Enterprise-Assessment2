@@ -1,8 +1,8 @@
 package by.it_academy.jd2.Mk_jd2_111_25.service;
 
-import by.it_academy.jd2.Mk_jd2_111_25.dto.Role;
-import by.it_academy.jd2.Mk_jd2_111_25.dto.User;
-import by.it_academy.jd2.Mk_jd2_111_25.dto.ValidationResult;
+import by.it_academy.jd2.Mk_jd2_111_25.core.dto.Role;
+import by.it_academy.jd2.Mk_jd2_111_25.core.dto.User;
+import by.it_academy.jd2.Mk_jd2_111_25.core.dto.ValidationResult;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IUserService;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IValidator;
 import by.it_academy.jd2.Mk_jd2_111_25.storage.api.IUserStorage;

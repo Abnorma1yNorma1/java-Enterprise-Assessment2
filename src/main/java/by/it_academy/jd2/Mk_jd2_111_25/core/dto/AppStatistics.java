@@ -1,4 +1,4 @@
-package by.it_academy.jd2.Mk_jd2_111_25.dto;
+package by.it_academy.jd2.Mk_jd2_111_25.core.dto;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;

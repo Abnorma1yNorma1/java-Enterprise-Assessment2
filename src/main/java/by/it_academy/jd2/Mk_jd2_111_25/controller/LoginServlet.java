@@ -1,8 +1,8 @@
 package by.it_academy.jd2.Mk_jd2_111_25.controller;
 
 import by.it_academy.jd2.Mk_jd2_111_25.controller.listener.SessionUserTrackingListener;
-import by.it_academy.jd2.Mk_jd2_111_25.dto.AppStatistics;
-import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
+import by.it_academy.jd2.Mk_jd2_111_25.core.ContextFactory;
+import by.it_academy.jd2.Mk_jd2_111_25.core.dto.AppStatistics;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IUserService;
 import by.it_academy.jd2.Mk_jd2_111_25.storage.api.StorageException;
 import jakarta.servlet.ServletException;
@@ -17,7 +17,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/api/login")
 public class LoginServlet extends HttpServlet {
 
-    private final IUserService service = ServiceFactory.getUserService();
+    private final IUserService service = ContextFactory.getBean(IUserService.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

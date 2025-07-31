@@ -1,9 +1,9 @@
 package by.it_academy.jd2.Mk_jd2_111_25.controller;
 
 import by.it_academy.jd2.Mk_jd2_111_25.controller.listener.SessionUserTrackingListener;
-import by.it_academy.jd2.Mk_jd2_111_25.dto.AppStatistics;
-import by.it_academy.jd2.Mk_jd2_111_25.dto.User;
-import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
+import by.it_academy.jd2.Mk_jd2_111_25.core.ContextFactory;
+import by.it_academy.jd2.Mk_jd2_111_25.core.dto.AppStatistics;
+import by.it_academy.jd2.Mk_jd2_111_25.core.dto.User;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IUserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,7 +19,7 @@ import java.time.format.DateTimeParseException;
 @WebServlet(urlPatterns = "/api/user")
 public class RegisterServlet extends HttpServlet {
 
-    private final IUserService service = ServiceFactory.getUserService();
+    private final IUserService service = ContextFactory.getBean(IUserService.class);
 
     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
