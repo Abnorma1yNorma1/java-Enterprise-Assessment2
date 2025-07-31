@@ -1,4 +1,4 @@
-package by.it_academy.jd2.Mk_jd2_111_25.filter;
+package by.it_academy.jd2.Mk_jd2_111_25.controller.filter;
 
 import by.it_academy.jd2.Mk_jd2_111_25.dto.Role;
 import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
