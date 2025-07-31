@@ -28,10 +28,11 @@ public class MessageStorageSQL implements IMessageStorage {
             select.setString(1, login);
             try (ResultSet result = select.executeQuery()){
                 while(result.next()){
-                    Message m = new Message();
-                    m.setText(result.getString("content"));
-                    m.setFromWho(result.getString("fromWho"));
-                    m.setDate(result.getTimestamp("sent_time"));
+                    Message m = Message.builder()
+                            .text(result.getString("content"))
+                            .fromWho(result.getString("fromWho"))
+                            .date(result.getTimestamp("sent_time").toLocalDateTime().toLocalDate())
+                            .build();
                     list.add(m);
                 }
             }

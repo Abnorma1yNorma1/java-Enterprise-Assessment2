@@ -1,7 +1,9 @@
 package by.it_academy.jd2.Mk_jd2_111_25.service;
 
 import by.it_academy.jd2.Mk_jd2_111_25.dto.Message;
+import by.it_academy.jd2.Mk_jd2_111_25.dto.ValidationResult;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IMessageService;
+import by.it_academy.jd2.Mk_jd2_111_25.service.api.IValidator;
 import by.it_academy.jd2.Mk_jd2_111_25.storage.api.IMessageStorage;
 
 import java.util.List;
@@ -9,9 +11,11 @@ import java.util.List;
 public class MessageService implements IMessageService {
 
     private final IMessageStorage storage;
+    private final IValidator<Message> validator;
 
-    public MessageService(IMessageStorage storage) {
+    public MessageService(IMessageStorage storage, IValidator<Message> validator) {
         this.storage = storage;
+        this.validator = validator;
     }
 
     @Override
@@ -21,6 +25,10 @@ public class MessageService implements IMessageService {
 
     @Override
     public void send(Message message) {
+        ValidationResult validationResult = validator.validate(message);
+        if (!validationResult.isValid()){
+            throw new IllegalArgumentException(validationResult.getMessage());
+        }
         storage.add(message);
     }
 

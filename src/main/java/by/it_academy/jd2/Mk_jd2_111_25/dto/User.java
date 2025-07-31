@@ -1,7 +1,6 @@
 package by.it_academy.jd2.Mk_jd2_111_25.dto;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class User {
 
@@ -12,6 +11,49 @@ public class User {
     private LocalDate registrationDate;
     private Role role;
 
+    private User(){}
+
+    public static Builder builder(){
+        return new Builder();
+    }
+
+    public static class Builder {
+        private final User user = new User();
+
+        public Builder login( String login) {
+            user.login = login;
+            return this;
+        }
+
+        public Builder password(String password){
+            user.password = password;
+            return this;
+        }
+
+        public Builder name(String name){
+            user.name = name;
+            return this;
+        }
+
+        public Builder birthDate(LocalDate birthDate){
+            user.birthDate = birthDate;
+            return this;
+        }
+
+        public Builder registrationDate(LocalDate registrationDate){
+            user.registrationDate = registrationDate;
+            return this;
+        }
+
+        public Builder role(Role role){
+            user.role = role;
+            return this;
+        }
+
+        public User build(){
+            return user;
+        }
+    }
 
     public Role getRole() {
         return role;

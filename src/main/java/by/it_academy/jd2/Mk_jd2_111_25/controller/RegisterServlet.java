@@ -1,6 +1,8 @@
 package by.it_academy.jd2.Mk_jd2_111_25.controller;
 
-import by.it_academy.jd2.Mk_jd2_111_25.dto.Role;
+import by.it_academy.jd2.Mk_jd2_111_25.controller.listener.SessionUserTrackingListener;
+import by.it_academy.jd2.Mk_jd2_111_25.dto.AppStatistics;
+import by.it_academy.jd2.Mk_jd2_111_25.dto.User;
 import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IUserService;
 import jakarta.servlet.ServletException;
@@ -31,34 +33,29 @@ public class RegisterServlet extends HttpServlet {
         String name = req.getParameter("name");
         String birthDateStr = req.getParameter("birthDate");
 
-        if (login == null || login.isBlank() ||
-                password == null || password.isBlank() ||
-                name == null || name.isBlank() ||
-                birthDateStr == null || birthDateStr.isBlank()) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().write("All fields are required");
-            return;
-        }
-
-        LocalDate birthDate;
         try {
-            birthDate = LocalDate.parse(birthDateStr, formatter);
-        } catch (DateTimeParseException e){
-            throw new ServletException("Invalid date format, expected yyyy-MM-dd");
-        }
-
-        Role role = Role.USER;
-
-        try {
-            service.addUser(login, password, name, birthDate, role);
-            resp.setStatus(HttpServletResponse.SC_CREATED);
+            LocalDate birthDate = LocalDate.parse(birthDateStr, formatter);
+            service.create(User.builder()
+                    .login(login)
+                    .password(password)
+                    .name(name)
+                    .birthDate(birthDate)
+                    .build());
+            AppStatistics statistics = (AppStatistics) getServletContext().getAttribute(SessionUserTrackingListener.STATISTICS_ATTR);
+            if (statistics != null){
+                statistics.setTotalUsers(service.count());
+            }
             resp.sendRedirect(req.getContextPath() + "/ui/signIn");
         } catch (IllegalArgumentException e) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().write("Invalid input: " + e.getMessage());
-        } catch (Exception e) {
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write("Server error: " + e.getMessage());
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/WEB-INF/ui/signUp.jsp").forward(req, resp);
+        } catch (DateTimeParseException e ){
+            req.setAttribute("error", "Неверный формат даты рождения");
+            req.getRequestDispatcher("/WEB-INF/ui/signUp.jsp").forward(req, resp);
+        }catch (Exception e) {
+            req.setAttribute("error", "Внутренняя ошибка сервера");
+            req.getRequestDispatcher("/WEB-INF/ui/signUp.jsp").forward(req, resp);
+
         }
     }
 

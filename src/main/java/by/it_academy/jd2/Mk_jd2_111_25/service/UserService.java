@@ -2,7 +2,9 @@ package by.it_academy.jd2.Mk_jd2_111_25.service;
 
 import by.it_academy.jd2.Mk_jd2_111_25.dto.Role;
 import by.it_academy.jd2.Mk_jd2_111_25.dto.User;
+import by.it_academy.jd2.Mk_jd2_111_25.dto.ValidationResult;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IUserService;
+import by.it_academy.jd2.Mk_jd2_111_25.service.api.IValidator;
 import by.it_academy.jd2.Mk_jd2_111_25.storage.api.IUserStorage;
 
 import java.time.LocalDate;
@@ -10,19 +12,27 @@ import java.time.LocalDate;
 public class UserService implements IUserService {
 
     private final IUserStorage storage;
+    private final IValidator<User> validator;
 
-    public UserService(IUserStorage storage) {
+    public UserService(IUserStorage storage, IValidator<User> validator) {
         this.storage = storage;
+        this.validator = validator;
     }
 
     @Override
-    public void addUser(String login, String password, String name, LocalDate date, Role role) {
-        User user = new User();
-        user.setLogin(login);
-        user.setPassword(password);
-        user.setName(name);
-        user.setBirthDate(date);
-        user.setRole(role);
+    public void create(User user) {
+
+        ValidationResult validationResult = validator.validate(user);
+
+        if (!validationResult.isValid()){
+            throw new IllegalArgumentException(validationResult.getMessage());
+        }
+        if (storage.userExists(user.getLogin())) {
+            throw new IllegalArgumentException("Пользователь уже существует");
+        }
+
+        user.setRole(Role.USER);
+        user.setRegistrationDate(LocalDate.now());
         storage.add(user);
     }
 

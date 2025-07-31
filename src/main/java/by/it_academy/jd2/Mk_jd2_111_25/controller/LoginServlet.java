@@ -1,5 +1,7 @@
 package by.it_academy.jd2.Mk_jd2_111_25.controller;
 
+import by.it_academy.jd2.Mk_jd2_111_25.controller.listener.SessionUserTrackingListener;
+import by.it_academy.jd2.Mk_jd2_111_25.dto.AppStatistics;
 import by.it_academy.jd2.Mk_jd2_111_25.service.ServiceFactory;
 import by.it_academy.jd2.Mk_jd2_111_25.service.api.IUserService;
 import by.it_academy.jd2.Mk_jd2_111_25.storage.api.StorageException;
@@ -29,6 +31,10 @@ public class LoginServlet extends HttpServlet {
             if (service.authenticate(login, password)) {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", login);
+                AppStatistics statistics = (AppStatistics) getServletContext().getAttribute(SessionUserTrackingListener.STATISTICS_ATTR);
+                if (statistics != null){
+                    statistics.userLoggedIn(login);
+                }
                 resp.sendRedirect(req.getContextPath() + "/ui/");
             } else {
                 req.setAttribute("error", "Invalid credentials");

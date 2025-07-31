@@ -1,13 +1,49 @@
 package by.it_academy.jd2.Mk_jd2_111_25.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Message {
 
-    private Date date;
+    private LocalDate date;
     private String fromWho;
     private String toWhom;
     private String text;
+
+    private Message() {
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private final Message message = new Message();
+
+        public Builder date(LocalDate date) {
+            message.date = date;
+            return this;
+        }
+
+        public Builder fromWho(String fromWho) {
+            message.fromWho = fromWho;
+            return this;
+        }
+
+        public Builder toWhom(String toWhom) {
+            message.toWhom = toWhom;
+            return this;
+        }
+
+        public Builder text(String text) {
+            message.text = text;
+            return this;
+        }
+
+        public Message build() {
+            return message;
+        }
+
+    }
 
     public String getText() {
         return text;
@@ -33,11 +69,11 @@ public class Message {
         this.fromWho = fromWho;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }

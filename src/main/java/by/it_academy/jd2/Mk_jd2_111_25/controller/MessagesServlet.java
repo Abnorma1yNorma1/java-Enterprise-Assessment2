@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/api/message")
@@ -52,20 +53,20 @@ public class MessagesServlet extends HttpServlet {
         String login = userAttr.toString();
         String toWhom = req.getParameter("toWhom");
         String text = req.getParameter("text");
-        if (toWhom == null || toWhom.isBlank() || text == null || text.isBlank()) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
-            return;
-        }
-        Message message = new Message();
-        message.setText(text);
-        message.setToWhom(toWhom);
-        message.setFromWho(login);
         try {
-            service.send(message);
+            service.send(Message.builder()
+                    .date(LocalDate.now())
+                    .fromWho(login)
+                    .toWhom(toWhom)
+                    .text(text)
+                    .build());
             AppStatistics statistics = (AppStatistics) getServletContext().getAttribute(SessionUserTrackingListener.STATISTICS_ATTR);
             if (statistics != null) {
                 statistics.incrementMessages();
             }
+        } catch (IllegalArgumentException e) {
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/WEB-INF/ui/user/message.jsp").forward(req, resp);
         } catch (StorageException e) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
             return;
